@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	home_name string = "/chatai"
+	home_name string = "/.chatai"
 )
 
 var (
