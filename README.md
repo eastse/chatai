@@ -6,7 +6,7 @@ The ChatGPT API CLI application is a command-line interface based tool designed 
 
 ## Installation
 
-Then, set the environment variable `CHATGPT_API_KEY` in your system with your API key.
+set the environment variable `CHATGPT_API_KEY` in your system with your API key.
 
 
 ## Command Structure:
