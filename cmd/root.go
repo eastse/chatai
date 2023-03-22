@@ -168,10 +168,6 @@ func run(ctrl_c chan bool) {
 
 		case line == "help":
 			io.WriteString(reader.Stderr(), "\033[33m"+helpinfo)
-			io.WriteString(reader.Stderr(), shortcut)
-		case line == "help2":
-			io.WriteString(reader.Stderr(), "commands:\n")
-			io.WriteString(reader.Stderr(), completer.Tree("    "))
 
 		case line == "setting":
 			fmt.Printf("app.Setting: %v\n", app.Setting)

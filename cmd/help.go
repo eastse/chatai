@@ -20,9 +20,6 @@ commands:
     stop-cmd                Stop receiving commands. Press Ctrl+C to exit
     multi-line              Switch single-line and multi-line input mode
 
-`
-
-var shortcut = `
 Shortcut:
 
   Meta + B  means press  Esc  and  n  separately. Users can change that in
