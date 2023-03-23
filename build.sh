@@ -1,5 +1,5 @@
 #!/bin/bash
-# Easyjson 命令行构建处理 chmod +x build.sh
+# chmod +x build.sh
 
 CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o build/chatai.exe
 
