@@ -37,7 +37,7 @@ func Execute() {
 	clearScreen()
 	loadPromptStyle()
 	chat.Load(app.GetChatConfig(app.Setting.UsingChatID))
-	chat.ShowChatInfo2()
+	chat.ShowChatInfo()
 
 	var ctrl_c = make(chan bool)
 
@@ -53,27 +53,6 @@ func Execute() {
 		}
 	}
 }
-
-var completer = readline.NewPrefixCompleter(
-	readline.PcItem("help"),
-	readline.PcItem("chat",
-		readline.PcItem("info"),
-		readline.PcItem("new"),
-		readline.PcItem("edit"),
-		readline.PcItem("delete"),
-	),
-	readline.PcItem("setting",
-		readline.PcItem("multi-line"),
-		readline.PcItem("quick"),
-		readline.PcItem("input-prompt"),
-		readline.PcItem("single-prompt-color"),
-		readline.PcItem("multi-prompt-color"),
-		readline.PcItem("single-text-color"),
-		readline.PcItem("multi-text-color"),
-	),
-	readline.PcItem("stop-cmd"),
-	readline.PcItem("multi-line"),
-)
 
 func run(ctrl_c chan bool) {
 	reader, _ = readline.NewEx(&readline.Config{
@@ -153,6 +132,8 @@ func run(ctrl_c chan bool) {
 				editChat()
 			case "info":
 				chat.ShowChatInfo()
+			case "clear":
+				clearReview()
 			case "delete":
 				deleteChat()
 			default:

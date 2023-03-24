@@ -22,6 +22,7 @@ type ChatEntity interface {
 	GetConfig() *config.ChatConfig
 	SendMessage(msg string, ctrlC chan bool)
 	GetModels() []string
+	ClearReview()
 	Close()
 }
 
@@ -47,6 +48,10 @@ func GetModels() []string {
 	return instance.GetModels()
 }
 
+func ClearReview() {
+	instance.ClearReview()
+}
+
 func Delete(cfg *config.ChatConfig) {
 	delete(app.Chats, cfg.ID)
 	os.Remove(cfg.HistoryFile)
@@ -60,31 +65,12 @@ func ShowChatInfo() {
 	typ := reflect.TypeOf(cfg).Elem()
 	val := reflect.Indirect(reflect.ValueOf(cfg))
 
-	for i := 0; i < val.NumField(); i++ {
-		t := typ.Field(i).Name
-		if t == "Type" {
-			continue
-		}
-		v := val.Field(i)
-		content = fmt.Sprintf("%v\033[36m   • %v:\033[m %v\n", content, t, v)
-	}
-	content += "\n"
-	fmt.Print(content)
-}
-
-func ShowChatInfo2() {
-	cfg := instance.GetConfig()
-	content := "\n"
-
-	typ := reflect.TypeOf(cfg).Elem()
-	val := reflect.Indirect(reflect.ValueOf(cfg))
-
 	keys := []string{}
 	vals := []string{}
 	maxWidth := 0
 	for i := 0; i < val.NumField(); i++ {
 		t := typ.Field(i).Name
-		if t == "Type" {
+		if t == "Type" || t == "ID" {
 			continue
 		}
 		v := val.Field(i)
@@ -102,7 +88,11 @@ func ShowChatInfo2() {
 		if count := maxWidth - w; count > 0 {
 			space = spaceText[:count]
 		}
-		content = fmt.Sprintf("%v\033[36m   • %v:%v\033[m %v\n", content, k, space, vals[i])
+		v := vals[i]
+		if v == "" {
+			v = "not"
+		}
+		content = fmt.Sprintf("%v\033[36m   • %v:%v\033[m %v\n", content, k, space, v)
 	}
 
 	content += "\n"

@@ -101,7 +101,7 @@ func addInitConfig() {
 			Temperature: 1,
 			Model:       openai.GPT3Dot5Turbo,
 			Developer:   config.DeveloperOpenAI,
-			HistoryFile: path.Join(HISTORY_DIR, fmt.Sprintf("%v.md", chatID)),
+			HistoryFile: path.Join(HISTORY_DIR, "default.md"),
 		},
 	}
 	UpdateConfig()

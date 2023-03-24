@@ -1,5 +1,29 @@
 package cmd
 
+import "github.com/chzyer/readline"
+
+var completer = readline.NewPrefixCompleter(
+	readline.PcItem("help"),
+	readline.PcItem("chat",
+		readline.PcItem("info"),
+		readline.PcItem("new"),
+		readline.PcItem("edit"),
+		readline.PcItem("clear"),
+		readline.PcItem("delete"),
+	),
+	readline.PcItem("setting",
+		readline.PcItem("multi-line"),
+		readline.PcItem("quick"),
+		readline.PcItem("input-prompt"),
+		readline.PcItem("single-prompt-color"),
+		readline.PcItem("multi-prompt-color"),
+		readline.PcItem("single-text-color"),
+		readline.PcItem("multi-text-color"),
+	),
+	readline.PcItem("stop-cmd"),
+	readline.PcItem("multi-line"),
+)
+
 var helpinfo = `
 commands:
 
@@ -8,6 +32,7 @@ commands:
     ├── info                Show current chat information
     ├── new                 Create a new chat
     ├── edit                Edit the current chat
+    ├── clear               Clear the current chat review context
     ├── delete              Delete the selected chat
     setting
     ├── multi-line          Set default single-line or multi-line input mode

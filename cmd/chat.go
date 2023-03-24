@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"path"
@@ -65,10 +66,10 @@ func validatorFloat(min, max float64) survey.Validator {
 	return func(val interface{}) error {
 		if v, err := strconv.ParseFloat(val.(string), 64); err == nil {
 			if v < min || v > max {
-				return fmt.Errorf("invalid argument please input %v ~ %v flaot", min, max)
+				return fmt.Errorf("please input %v ~ %v flaot", min, max)
 			}
 		} else {
-			return fmt.Errorf("invalid argument please input %v ~ %v flaot", min, max)
+			return fmt.Errorf("please input %v ~ %v flaot", min, max)
 		}
 		return nil
 	}
@@ -78,10 +79,26 @@ func validatorInt(min, max int64) survey.Validator {
 	return func(val interface{}) error {
 		if v, err := strconv.ParseInt(val.(string), 10, 64); err == nil {
 			if v < min || v > max {
-				return fmt.Errorf("invalid argument please input %v ~ %v integer", min, max)
+				return fmt.Errorf("please input %v ~ %v integer", min, max)
 			}
 		} else {
-			return fmt.Errorf("invalid argument please input %v ~ %v integer", min, max)
+			return fmt.Errorf("please input %v ~ %v integer", min, max)
+		}
+		return nil
+	}
+}
+
+func validatorTitle() survey.Validator {
+	allTitle := []string{}
+	for _, v := range app.Chats {
+		allTitle = append(allTitle, v.Title)
+	}
+	return func(val interface{}) error {
+		title, _ := val.(string)
+		for _, v := range allTitle {
+			if title == v {
+				return errors.New("title repeat")
+			}
 		}
 		return nil
 	}
@@ -95,7 +112,7 @@ func newChat() {
 				Message: "Title: ",
 				Help:    "The title of the chat, used to distinguish",
 			},
-			Validate: survey.ComposeValidators(survey.Required, survey.MaxLength(60)),
+			Validate: survey.ComposeValidators(survey.Required, survey.MaxLength(30), validatorTitle()),
 		},
 		{
 			Name: "prompt",
@@ -144,15 +161,16 @@ func newChat() {
 
 	chatID := snowflake.GetId().Int64()
 	info := &config.ChatConfig{
-		ID:          chatID,
-		Developer:   config.DeveloperOpenAI,
-		HistoryFile: path.Join(app.HISTORY_DIR, fmt.Sprintf("%v.md", chatID)),
+		ID:        chatID,
+		Developer: config.DeveloperOpenAI,
 	}
 	err := survey.Ask(question, info)
 	if err != nil {
 		fmt.Printf("Invalid argument err:%v", err.Error())
 		return
 	}
+	info.HistoryFile = path.Join(app.HISTORY_DIR, fmt.Sprintf("%v.md", info.Title))
+
 	app.Chats[chatID] = info
 	app.Setting.UsingChatID = chatID
 	app.UpdateConfig()
@@ -164,14 +182,6 @@ func newChat() {
 func editChat() {
 	info := chat.GetConfig()
 	var question = []*survey.Question{
-		{
-			Name: "title",
-			Prompt: &survey.Input{
-				Message: "Title: ",
-				Default: info.Title,
-				Help:    "The title of the chat, used to distinguish",
-			},
-		},
 		{
 			Name: "prompt",
 			Prompt: &survey.Input{
@@ -233,6 +243,11 @@ func editChat() {
 	fmt.Println("\033[32m Successfully!")
 	chat.Load(&info)
 	chat.ShowChatInfo()
+}
+
+func clearReview() {
+	chat.ClearReview()
+	fmt.Println("\033[32m Successfully!")
 }
 
 func deleteChat() {

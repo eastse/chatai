@@ -124,6 +124,10 @@ func (c *chatGPT) Close() {
 	c.history.Close()
 }
 
+func (c *chatGPT) ClearReview() {
+	c.record = c.record[:0]
+}
+
 func (c *chatGPT) process(data []byte) {
 	resp := &ChatResponse{}
 	if err := json.Unmarshal(data, resp); err != nil {
