@@ -18,6 +18,7 @@ The following is a list of commands available in the ChatGPT API CLI application
    - `chat info`: This sub-command provides the current chat's details.
    - `chat new`: This sub-command creates a new chat.
    - `chat edit`: This sub-command allows the user to edit the current chat.
+   - `chat clear`: This sub-command Clear the context of the current chat.
    - `chat delete`: This sub-command deletes the selected chat.
 - `setting`: This command is used to customize various settings as per requirements.
    - `setting multi-line`: This sub-command sets the default input mode to single-line or multi-line.

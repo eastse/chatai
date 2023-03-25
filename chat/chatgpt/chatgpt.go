@@ -33,9 +33,9 @@ type chatGPT struct {
 }
 
 func init() {
-	API_KEY = os.Getenv("CHATGPT_API_KEY")
+	API_KEY = os.Getenv("OPENAI_API_KEY")
 	if API_KEY == "" {
-		fmt.Println("Please set your CHATGPT_API_KEY in your environment variable")
+		fmt.Println("Please set your OPENAI_API_KEY in your environment variable")
 		os.Exit(0)
 	}
 }

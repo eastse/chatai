@@ -34,6 +34,7 @@ func Load(cfg *config.ChatConfig) {
 	case config.DeveloperOpenAI:
 		instance = chatgpt.New(cfg)
 	}
+	fmt.Printf("\033]0; %v \007", cfg.Title)
 }
 
 func SendMessage(msg string, ctrl_c chan bool) {
