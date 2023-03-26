@@ -10,15 +10,10 @@ const (
 // GPT3 Models are designed for text-based tasks. For code-specific
 // tasks, please refer to the Codex series of models.
 const (
-	GPT3Dot5Turbo     = "gpt-3.5-turbo"
-	GPT3Dot5Turbo0301 = "gpt-3.5-turbo-0301"
-)
-
-// Codex Defines the models provided by OpenAI.
-// These models are designed for code-specific tasks, and use
-// a different tokenizer which optimizes for whitespace.
-const (
-	CodexCodeDavinci002 = "code-davinci-002"
+	GPT3Dot5Turbo      = "gpt-3.5-turbo"
+	GPT3Dot5Turbo0301  = "gpt-3.5-turbo-0301"
+	GPT3TextDavinci003 = "text-davinci-003"
+	GPT3TextDavinci002 = "text-davinci-002"
 )
 
 // Chat message role defined by the OpenAI API.
@@ -29,5 +24,5 @@ const (
 )
 
 func (c *chatGPT) GetModels() []string {
-	return []string{GPT3Dot5Turbo, GPT3Dot5Turbo0301}
+	return []string{GPT3Dot5Turbo, GPT3Dot5Turbo0301, GPT3TextDavinci003, GPT3TextDavinci002}
 }

@@ -77,7 +77,7 @@ func (c *chatGPT) SendMessage(message string, ctrl_c chan bool) {
 	msg = append(msg, &ChatMessage{ChatMessageRoleUser, message})
 
 	chatRequest := ChatRequest{
-		Model:       GPT3Dot5Turbo,
+		Model:       c.config.Model,
 		Temperature: c.config.Temperature,
 		Messages:    msg,
 		Stream:      true,
@@ -195,6 +195,10 @@ func (c *chatGPT) loadReview() {
 	err = json.Unmarshal(jsonData, &c.record)
 	if err != nil {
 		fmt.Printf("unmarshal review data err: %v\n", err)
+	}
+
+	if n := int(c.config.Review) * 2; len(c.record) > n {
+		c.record = c.record[:n]
 	}
 }
 

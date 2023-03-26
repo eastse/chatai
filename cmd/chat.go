@@ -238,6 +238,7 @@ func editChat() {
 		fmt.Printf("Invalid argument err:%v", err.Error())
 		return
 	}
+
 	app.Chats[info.ID] = &info
 	app.UpdateConfig()
 	fmt.Println("\033[32m Successfully!")
