@@ -15,6 +15,7 @@ func setDefaultMultiline() {
 	str := ""
 	prompt := &survey.Select{
 		Message: "Always enable multiline text input mode on startup:",
+		Default: app.Setting.MultilineInput,
 		Options: []string{"true", "false"},
 	}
 
@@ -79,6 +80,7 @@ func setInputPrompt() {
 	str := ""
 	prompt := &survey.Input{
 		Message: "Prompt:",
+		Default: app.Setting.InputPrompt,
 		Help:    "Please enter the characters displayed when prompted:",
 	}
 
@@ -91,11 +93,12 @@ func setInputPrompt() {
 		app.UpdateConfig()
 		loadPromptStyle()
 	}
+
 	fmt.Println("\033[32m Successfully!")
 }
 
 func setTargetColor(target *string) {
-	selected, err := selectColor()
+	selected, err := selectColor(*target)
 	if err != nil {
 		return
 	}
@@ -109,9 +112,10 @@ func setTargetColor(target *string) {
 	fmt.Println("\033[32m Successfully!")
 }
 
-func selectColor() (color string, err error) {
+func selectColor(using string) (color string, err error) {
 	prompt := &survey.Select{
 		Message: "Choose a color:",
+		Default: using,
 		Options: []string{"Red", "Green", "Yellow", "Blue", "Purple", "Cyan"},
 	}
 	err = survey.AskOne(prompt, &color)
