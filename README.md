@@ -1,16 +1,18 @@
 # ChatAI
 
 ## Introduction:
-The ChatGPT API CLI application is a command-line interface based tool designed to provide easy and quick access to the ChatGPT API. With a simple and intuitive command structure, this tool allows users to easily create, edit and delete chats, switch between different chats, and customize various settings as per their requirements.
+ChatAI CLI application is a command-line interface based tool designed to provide easy and quick access to the ChatGPT API. With a simple and intuitive command structure, this tool allows users to easily create, edit and delete chats, switch between different chats, and customize various settings as per their requirements.
 
+![demo](docs/example.gif)
 
 ## Installation
 
-set the environment variable `CHATGPT_API_KEY` in your system with your API key.
-
+1. set the environment variable `CHATGPT_API_KEY` in your system with your API key.
+2. run `chatai` start interactive command
+3. run `chatai [question]` take a quick question and answer
 
 ## Command Structure:
-The following is a list of commands available in the ChatGPT API CLI application.
+The following is a list of commands available in the ChatAI CLI application.
 
 #### Usage:
 - `help` This command displays the help information containing all the available commands.
@@ -28,8 +30,9 @@ The following is a list of commands available in the ChatGPT API CLI application
    - `setting multi-prompt-color`: This sub-command sets the multi-line prompt color.
    - `setting single-text-color`: This sub-command sets the single-line input text color.
    - `setting multi-text-color`: This sub-command sets the multi-line input text color.
-- `stop-cmd`: This command stops the execution of commands in the application. Users can press Ctrl + C to exit the application.
+- `stop-cmd`: This command stops the execution of commands in the application. Users can press Ctrl + Z to exit the application.
 - `multi-line`: This command switches the input mode between single-line and multi-line.
+- `exit`: Quit.
 
 
 ## Readline Shortcut
