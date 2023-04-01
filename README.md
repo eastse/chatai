@@ -7,7 +7,7 @@ ChatAI CLI application is a command-line interface based tool designed to provid
 
 ## Installation
 
-1. set the environment variable `CHATGPT_API_KEY` in your system with your API key.
+1. set the environment variable `OPENAI_API_KEY` in your system with your API key.
 2. run `chatai` start interactive command
 3. run `chatai [question]` take a quick question and answer
 
